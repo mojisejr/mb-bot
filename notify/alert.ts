@@ -1,9 +1,12 @@
 import { PriceData } from "../interfaces/price-data";
 import { config } from "../config";
-import { hiPriceNotify, lowPriceNotify } from "./line-notify";
+// import { hiPriceNotify, lowPriceNotify } from "./line-notify";
+import { broadcastPriceAlert } from "./messaging/broadcast-price";
 
 let hiAlreadyAlerted = 0;
 let lowAlreadyAlerted = 0;
+let prevLowPrice = 0;
+let prevHiPrice = 0;
 let highAlerted = false;
 let lowAlerted = false;
 
@@ -11,12 +14,15 @@ export function priceAlert(data: PriceData) {
   if (
     data.percentage > 0 &&
     data.percentage >= config.hiAlert &&
+    prevHiPrice != data.exchangeRate &&
     !highAlerted
   ) {
     console.log("hi alert at", data.percentage);
     highAlerted = true;
     hiAlreadyAlerted = 1;
-    hiPriceNotify(data);
+    broadcastPriceAlert(data, true);
+    prevHiPrice = data.exchangeRate;
+    // hiPriceNotify(data);
   }
   if (highAlerted) {
     hiAlreadyAlerted += 1;
@@ -26,12 +32,14 @@ export function priceAlert(data: PriceData) {
   if (
     data.percentage <= 0 &&
     data.percentage <= config.lowAlert &&
+    prevLowPrice != data.exchangeRate &&
     !lowAlerted
   ) {
     console.log("low alert at", data.percentage);
     lowAlerted = true;
     lowAlreadyAlerted = 1;
-    lowPriceNotify(data);
+    broadcastPriceAlert(data, false);
+    prevLowPrice = data.exchangeRate;
   }
 
   if (lowAlerted) {
@@ -39,20 +47,17 @@ export function priceAlert(data: PriceData) {
     console.log("already low  alert", lowAlreadyAlerted);
   }
 
-  if (lowAlreadyAlerted >= 10) {
+  if (lowAlreadyAlerted >= config.alertDelay) {
     console.log("reset low count");
     lowAlreadyAlerted = 0;
     lowAlerted = false;
   }
 
-  if (hiAlreadyAlerted >= 10) {
+  if (hiAlreadyAlerted >= config.alertDelay) {
     console.log("reset hi count");
     hiAlreadyAlerted = 0;
     highAlerted = false;
   }
-  //1. if price is more or less than 0.5% alert to notify
-  //2. if already alerted check if price is now below 0.5 if not re-alert every 6 min
-  //3. if price below 0.5 reset alerted flag
 }
 
 let previousPrice: number | null = null;
