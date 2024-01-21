@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.ts",
-    "start": "ts-node index.ts"
+    "start": "ts-node index.ts",
+    "build": "docker build -t mojisejr/maxbit:v1.0 .",
+    "run": "docker run --name maxbit --cap-add=SYS_ADMIN mojisejr/maxbit:v1.0",
+    "stop": "docker stop maxbit && docker rm maxbit",
+    "rmi": "docker image rmi mojisejr/maxbit:v1.0"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +26,7 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@types/locate-chrome": "^0.1.2",
     "@types/qs": "^6.9.11"
   }
 }

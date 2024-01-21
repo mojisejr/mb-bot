@@ -33,7 +33,7 @@ export async function lowPriceNotify(priceData: PriceData) {
     const response = await axios.post(
       process.env.line_uri as string,
       qs.stringify({
-        message: `🔴 Down [${priceData.currency1}/${priceData.currency2}] = ${priceData.percentage} %`,
+        message: `🔴 Down [${priceData.currency1}/${priceData.currency2}] = ${priceData.percentage}%`,
       }),
       {
         headers: {

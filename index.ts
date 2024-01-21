@@ -4,12 +4,14 @@ import { config } from "./config";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const job = new CronJob(
-  config.cronPattern,
-  async () => await run(),
-  null,
-  true
-);
+(async () => await run())();
 
-console.log("Cron Start!");
-job.start();
+// const job = new CronJob(
+//   config.cronPattern,
+//   async () => await run(),
+//   null,
+//   true
+// );
+
+// console.log("Cron Start!");
+// job.start();
