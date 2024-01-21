@@ -8,18 +8,11 @@ export async function loadPageContent(url: string) {
       args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-gpu"],
     });
 
-    console.log("PUP OBJ: ", puppeteer);
-
     const page = await browser.newPage();
-
-    console.log("Page: ", page);
-    console.log("url: ", url);
 
     await page.goto(url, { waitUntil: config.waitUntil, timeout: 0 });
 
     const pageContent = await page.content();
-
-    console.log("page content: ", pageContent);
 
     await browser.close();
 
