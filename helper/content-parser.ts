@@ -1,7 +1,8 @@
 export function parseContent(content: string) {
   // Define a regular expression pattern to extract the relevant information
   const pattern =
-    /(\d+)\s+([A-Za-z]+)\s+~\s+(\d+\.\d+)\s+([A-Za-z]+)(-?[\d.]+)%/;
+    /(\d+)\s+([A-Za-z]+)\s+~\s+(\d+\.\d+)\s+([A-Za-z]+)([-+]?\d*\.?\d+%)/;
+  // /(\d+)\s+([A-Za-z]+)\s+~\s+(\d+\.\d+)\s+([A-Za-z]+)(-?[\d.]+)%/;
   // /(\d+)\s+([A-Za-z]+)\s+~\s+(\d+\.\d+)\s+([A-Za-z]+)-([\d.-]+)%/;
 
   // Use the regular expression to match the content and extract information

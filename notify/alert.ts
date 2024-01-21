@@ -54,3 +54,21 @@ export function priceAlert(data: PriceData) {
   //2. if already alerted check if price is now below 0.5 if not re-alert every 6 min
   //3. if price below 0.5 reset alerted flag
 }
+
+let previousPrice: number | null = null;
+export function decimalAlert(priceData: PriceData) {
+  // Extract the first decimal from the prices
+  const previousDecimal =
+    previousPrice !== null ? Math.floor((previousPrice % 1) * 10) : null;
+  const currentDecimal = Math.floor((priceData.exchangeRate % 1) * 10);
+
+  // Check for changes in the first decimal
+  if (previousDecimal !== null && currentDecimal !== previousDecimal) {
+    const changeDirection = currentDecimal > previousDecimal ? "up" : "down";
+    console.log(
+      `Price changed ${changeDirection} from ${previousPrice} to ${priceData.exchangeRate}`
+    );
+  }
+
+  previousPrice = priceData.exchangeRate;
+}

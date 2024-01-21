@@ -6,12 +6,11 @@ import { PriceData } from "../interfaces/price-data";
 
 export async function hiPriceNotify(priceData: PriceData) {
   try {
-    console.log("key ", process.env.notify_key);
     const token = process.env.notify_key as string;
     const response = await axios.post(
       process.env.line_uri as string,
       qs.stringify({
-        message: `🟢 Up [${priceData.currency1}/${priceData.currency2}] = ${priceData.percentage}%`,
+        message: `🟢 Up [${priceData.currency1}/${priceData.currency2}] = ${priceData.percentage}% @ ${priceData.exchangeRate}`,
       }),
       {
         headers: {
@@ -33,7 +32,7 @@ export async function lowPriceNotify(priceData: PriceData) {
     const response = await axios.post(
       process.env.line_uri as string,
       qs.stringify({
-        message: `🔴 Down [${priceData.currency1}/${priceData.currency2}] = ${priceData.percentage}%`,
+        message: `🔴 Down [${priceData.currency1}/${priceData.currency2}] = ${priceData.percentage}% @ ${priceData.exchangeRate}`,
       }),
       {
         headers: {
