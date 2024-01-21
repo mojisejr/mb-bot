@@ -1,8 +1,8 @@
+import * as dotenv from "dotenv";
+dotenv.config();
 import { CronJob } from "cron";
 import { run } from "./runner";
 import { config } from "./config";
-import * as dotenv from "dotenv";
-dotenv.config();
 
 // (async () => await run())();
 
