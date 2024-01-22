@@ -20,7 +20,7 @@ export function priceAlert(data: PriceData) {
     console.log("hi alert at", data.percentage);
     highAlerted = true;
     hiAlreadyAlerted = 1;
-    broadcastPriceAlert(data, true);
+    // broadcastPriceAlert(data, true);
     prevHiPrice = data.exchangeRate;
     // hiPriceNotify(data);
   }
@@ -38,7 +38,7 @@ export function priceAlert(data: PriceData) {
     console.log("low alert at", data.percentage);
     lowAlerted = true;
     lowAlreadyAlerted = 1;
-    broadcastPriceAlert(data, false);
+    // broadcastPriceAlert(data, false);
     prevLowPrice = data.exchangeRate;
   }
 

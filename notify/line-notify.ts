@@ -3,14 +3,15 @@
 import axios from "axios";
 import qs from "qs";
 import { PriceData } from "../interfaces/price-data";
+import { config } from "../config";
 
-export async function hiPriceNotify(priceData: PriceData) {
+export async function hiPriceNotify(priceData: PriceData, oldPrice: number) {
   try {
     const token = process.env.notify_key as string;
     const response = await axios.post(
       process.env.line_uri as string,
       qs.stringify({
-        message: `🟢 Up [${priceData.currency1}/${priceData.currency2}] = ${priceData.percentage}% @ ${priceData.exchangeRate}`,
+        message: `🟢 +${config.hiAlert}% [${priceData.currency1}/${priceData.currency2}] from ${oldPrice} to ${priceData.exchangeRate} Baht`,
       }),
       {
         headers: {
@@ -26,13 +27,13 @@ export async function hiPriceNotify(priceData: PriceData) {
   }
 }
 
-export async function lowPriceNotify(priceData: PriceData) {
+export async function lowPriceNotify(priceData: PriceData, oldPrice: number) {
   try {
     const token = process.env.notify_key as string;
     const response = await axios.post(
       process.env.line_uri as string,
       qs.stringify({
-        message: `🔴 Down [${priceData.currency1}/${priceData.currency2}] = ${priceData.percentage}% @ ${priceData.exchangeRate}`,
+        message: `🔴 ${config.lowAlert}% [${priceData.currency1}/${priceData.currency2}] from ${oldPrice} to ${priceData.exchangeRate} Baht`,
       }),
       {
         headers: {
