@@ -69,8 +69,8 @@ async function checkPriceForHiAlert(priceData: PriceData) {
   if (price > currentPrice! && price >= calculatedHiThresholdPrice) {
     console.log(`alert UP @ ${price}`);
     if (canAlert()) {
-      // await broadcastPriceAlert(priceData, true, currentPrice!);
-      await hiPriceNotify(priceData, currentPrice!);
+      await broadcastPriceAlert(priceData, true, currentPrice!);
+      // await hiPriceNotify(priceData, currentPrice!);
     }
     updateCurrentPrice(price);
   }
@@ -81,8 +81,8 @@ async function checkPriceForLowAlert(priceData: PriceData) {
   if (price < currentPrice! && price <= calculatedLowThresholdPrice) {
     console.log(`alert Down @ ${price}`);
     if (canAlert()) {
-      // await broadcastPriceAlert(priceData, false, currentPrice!);
-      await lowPriceNotify(priceData, currentPrice!);
+      await broadcastPriceAlert(priceData, false, currentPrice!);
+      // await lowPriceNotify(priceData, currentPrice!);
     }
     updateCurrentPrice(price);
   }
