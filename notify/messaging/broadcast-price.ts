@@ -9,11 +9,9 @@ export async function broadcastPriceAlert(
   nextLow: number,
   nextHi: number
 ) {
-  const upMsg = `🟢 +${config.hiAlert}% [${priceData.currency1}/${priceData.currency2}] from ${oldPrice} to ${priceData.exchangeRate} Baht
-  Next @ ${nextHi}, ${nextLow}
-  `;
-  const downMsg = `🔴 ${config.lowAlert}% [${priceData.currency1}/${priceData.currency2}] from ${oldPrice} to ${priceData.exchangeRate} Baht
-  Next @ ${nextHi}, ${nextLow}`;
+  const upMsg = `🟢 +${config.hiAlert}% [${priceData.currency1}/${priceData.currency2}] from ${oldPrice} to ${priceData.exchangeRate} THB on Maxbit`;
+  const downMsg = `🔴 ${config.lowAlert}% [${priceData.currency1}/${priceData.currency2}] from ${oldPrice} to ${priceData.exchangeRate} THB on Maxbit`;
+
   await lineClient.broadcast({
     messages: [
       {
