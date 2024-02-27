@@ -16,7 +16,7 @@ export async function run() {
     await priceAlertV2(data);
   } catch (error: any) {
     console.log("global error: ");
-    errorNotify(`🤮 Maxbit-bot: [ERROR]: ${error.message}`);
+    await errorNotify(`🤮 Maxbit-bot: [ERROR]: ${error.message}`);
     console.log(error);
   }
   // console.log(data.exchangeRate);
