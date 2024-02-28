@@ -1,12 +1,19 @@
 import puppeteer from "puppeteer";
 import { config } from "../config";
-import { errorNotify } from "../notify/line-notify";
 
 export async function loadPageContent(url: string) {
   try {
     const browser = await puppeteer.launch({
-      headless: "new",
-      args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-gpu"],
+      headless: true,
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-gpu",
+        //new
+        "--disable-dev-shm-usage",
+        "--single-process",
+        "--no-zygote",
+      ],
       timeout: 0,
     });
 
@@ -21,8 +28,5 @@ export async function loadPageContent(url: string) {
     return pageContent;
   } catch (error: any) {
     console.log(error);
-    await errorNotify(`🤮 Maxbit-bot: [ERROR]: ${error.message}`);
-    // console.log("loadPaegContent: Error", error.message);
-    return null;
   }
 }
