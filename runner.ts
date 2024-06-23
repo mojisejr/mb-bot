@@ -11,6 +11,7 @@ export async function run() {
     if (pageContent == null) return;
     const data = await scrapeData(pageContent);
     if (data == null) return;
+    // console.log(data);
     // decimalAlert(data);
     // priceAlert(data);
     await priceAlertV2(data);

@@ -10,6 +10,8 @@ export async function scrapeData(
 
     const content = $(".price").text();
 
+    console.log("content: ", content);
+
     const parsedContent = parseContent(content);
 
     return parsedContent;
