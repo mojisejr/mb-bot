@@ -22,8 +22,16 @@ export async function loadPageContent(url: string) {
 
   const pageContent = await page.content();
 
-  // await browser.close();
-  // await page.close();
+  await sleep(1000);
+  await page.close();
+  await sleep(1000);
+  await browser.close();
 
   return pageContent;
+}
+
+function sleep(ms: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 }
